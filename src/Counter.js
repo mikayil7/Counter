@@ -1,28 +1,39 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+ TouchableOpacity, 
+} from 'react-native';
+
+import { useSelector,useDispatch } from 'react-redux';
+import { incNUM,decNUM } from './redux/action';
 
 const Counter = () => {
-  const [count, setCount] = useState(0);
-
- 
+const state = useSelector((state)=>state.numberReducer)
+console.log(state)
+const dispatch = useDispatch()
 
   return (
+
     <View style={styles.Container}>
-      <Text style={styles.sectionTitle}>{count}</Text>
+      <Text style={styles.sectionTitle}>{state}</Text>
 
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity style={styles.button} onPress={()=> setCount(count + 1)}>
+        <TouchableOpacity style={styles.button} onPress={()=>dispatch(incNUM())}>
           <Text style={styles.sectionTitle}>+</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={()=> setCount(count - 1)}>
+        <TouchableOpacity style={styles.button} onPress={()=>dispatch(decNUM())}>
           <Text style={styles.sectionTitle}>-</Text>
         </TouchableOpacity>
       </View>
+     
     </View>
+   
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   Container: {
     flex: 1,
     marginTop: 32,
